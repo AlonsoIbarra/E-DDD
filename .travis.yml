@@ -4,6 +4,6 @@ python:
 install:
  - pip install flake8 autopep8
 script:
- - cd ./ecommers
+ - cd ./ecommerce
  - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
  - python3 manage.py test test_entities.py
