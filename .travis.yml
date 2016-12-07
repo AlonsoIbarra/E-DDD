@@ -1,9 +1,12 @@
 language: python
 python:
-  - "3.4"
+ - "3.4"
 install:
-  - pip install flake8 autopep8
+ - pip install flake8 autopep8 django
 script:
-  - cd ./ecommers
-  - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
-  - python3 manage.py test test_entities.py
+ - cd ./ecommerce
+ - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
+ - cd ecommerce | cd compras | ls -l
+ - python3 manage.py makemigrations
+ - python3 manage.py migrate
+ - python3 manage.py test compras
