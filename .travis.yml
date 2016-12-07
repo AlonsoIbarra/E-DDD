@@ -9,6 +9,7 @@ script:
  - ls
  - cd compras
  - ls
- - python3 manage.py makemigrations
+ - rm -r migrations
+ - python3 manage.py makemigrations compras
  - python3 manage.py migrate
  - python3 manage.py test compras
