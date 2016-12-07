@@ -6,6 +6,7 @@ install:
 script:
  - cd ./ecommerce
  - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
+ - cd ecommerce | cd compras | ls -l
  - python3 manage.py makemigrations
  - python3 manage.py migrate
  - python3 manage.py test compras
