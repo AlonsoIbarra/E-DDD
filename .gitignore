@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+ecommerce/db.sqlite3
 
 # C extensions
 *.so
