@@ -13,6 +13,7 @@ script:
  - ls -l
  - cd compras
  - ls -l
+ - autopep8 entities.py --in-place
  - rm -r migrations
  - ls -l
  - cd ..
@@ -20,6 +21,7 @@ script:
  - python3 manage.py makemigrations compras
  - python3 manage.py migrate
  - python3 manage.py test compras
+ 
  - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
 
-# - pip install flake8 autopep8 django
+
