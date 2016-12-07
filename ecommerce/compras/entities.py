@@ -1,4 +1,5 @@
 from django.db import models
+import ast
 
 # Create your models here.
 class ListProduct(models.TextField):
@@ -6,7 +7,7 @@ class ListProduct(models.TextField):
     description = "Stores a python list"
 
     def __init__(self, *args, **kwargs):
-        
+
         super(ListProduct, self).__init__(*args, **kwargs)
 
     def to_python(self, value):
@@ -22,7 +23,7 @@ class ListProduct(models.TextField):
         if value is None:
             return value
 
-        return unicode(value)
+        return str(value)
 
     def value_to_string(self, obj):
         value = self._get_val_from_obj(obj)
@@ -56,7 +57,3 @@ class OrdenCompra (Entity):
 	(2, "Cancelada"),
     )
     status = models.IntegerField(choices = STATUS_CHOICES)
-
-
-
-
