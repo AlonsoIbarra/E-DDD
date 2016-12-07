@@ -14,7 +14,9 @@ script:
  - cd compras
  - ls -l
  - autopep8 entities.py --in-place
- - autopep8 tests/tests_entities.py -- in-place
+ - cd tests
+ - autopep8 tests_entities.py -- in-place
+ - cd ..
  - rm -r migrations
  - ls -l
  - cd ..
