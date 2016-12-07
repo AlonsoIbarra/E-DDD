@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import compras.models
 
 
 class Migration(migrations.Migration):
@@ -14,16 +13,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Entity',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
             ],
         ),
         migrations.CreateModel(
             name='Carrito',
             fields=[
-                ('entity_ptr', models.OneToOneField(auto_created=True, to='compras.Entity', parent_link=True)),
+                ('entity_ptr', models.OneToOneField(auto_created=True, parent_link=True, to='compras.Entity')),
                 ('idCarrito', models.AutoField(primary_key=True, serialize=False)),
                 ('idCliente', models.IntegerField()),
-                ('listaProductos', compras.models.ListProduct()),
+                ('listaProductos', models.TextField()),
                 ('fechaCarrito', models.DateField(auto_now=True)),
                 ('total', models.DecimalField(decimal_places=2, max_digits=8)),
             ],
@@ -32,11 +31,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='OrdenCompra',
             fields=[
-                ('entity_ptr', models.OneToOneField(auto_created=True, to='compras.Entity', parent_link=True)),
+                ('entity_ptr', models.OneToOneField(auto_created=True, parent_link=True, to='compras.Entity')),
                 ('idOrdenCompra', models.AutoField(primary_key=True, serialize=False)),
                 ('fechaCompra', models.DateField(auto_now_add=True)),
                 ('idCliente', models.IntegerField()),
-                ('listaProductosOrden', compras.models.ListProduct()),
+                ('listaProductosOrden', models.TextField()),
                 ('status', models.IntegerField(choices=[(0, 'Pagada'), (1, 'Pendiente'), (2, 'Cancelada')])),
             ],
             bases=('compras.entity',),
@@ -44,7 +43,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Producto',
             fields=[
-                ('entity_ptr', models.OneToOneField(auto_created=True, to='compras.Entity', parent_link=True)),
+                ('entity_ptr', models.OneToOneField(auto_created=True, parent_link=True, to='compras.Entity')),
                 ('idproducto', models.AutoField(primary_key=True, serialize=False)),
                 ('nombre', models.CharField(max_length=60)),
                 ('descripcion', models.CharField(max_length=100)),
