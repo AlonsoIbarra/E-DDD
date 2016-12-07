@@ -6,4 +6,4 @@ install:
 script:
  - cd ./ecommerce
  - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
- - python3 manage.py test test_entities.py
+ - python3 manage.py test compras.tests.tests_entities.py
