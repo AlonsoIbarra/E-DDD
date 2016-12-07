@@ -2,15 +2,23 @@ language: python
 python:
  - "3.4"
 install:
- - pip install flake8 autopep8 django
+ - sudo easy_install3 pip
+ - pip3 install 'django<1.9'
+ - pip3 install flake8
+ - pip3 install autopep8
 script:
+ - ls -l
  - cd ./ecommerce
- - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
- - ls
+ - ls -l
  - cd compras
- - ls
+ - ls -l
  - rm -r migrations
+ - ls -l
  - cd ..
+ - ls -l
  - python3 manage.py makemigrations compras
  - python3 manage.py migrate
  - python3 manage.py test compras
+ - flake8 --max-line-length=160 --exclude ./compras/migrations ./compras
+
+# - pip install flake8 autopep8 django
