@@ -8,19 +8,14 @@ install:
  - pip3 install flake8
  - pip3 install autopep8
 script:
- - ls -l
  - cd ./ecommerce
- - ls -l
  - cd compras
- - ls -l
  - autopep8 entities.py --in-place
  - cd tests
  - autopep8 tests_entities.py --in-place
  - cd ..
  - rm -r migrations
- - ls -l
  - cd ..
- - ls -l
  - python3 manage.py makemigrations compras
  - python3 manage.py migrate
  - python3 manage.py test compras
