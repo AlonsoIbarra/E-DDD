@@ -8,7 +8,7 @@ class Entity (models.Model):
 
 
 class Producto (Entity):
-    idproducto = models.AutoField(primary_key=True)
+    idProducto = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=60)
     descripcion = models.CharField(max_length=100)
     marca = models.CharField(max_length=30)
