@@ -28,8 +28,8 @@ class OrdenCompraTest(TestCase):
         """
         order = OrdenCompra.find(self.pending_order.id)
 
-        self.assertIsInstance(order, OrdenCompraModel)
-        self.assertEquals(order, self.pending_order)
+        self.assertIsInstance(order, OrdenCompra)
+        self.assertEquals(order.OrdenCompra, self.pending_order)
 
     def test_find_non_existent_order(self):
         """ Prueba que OrdenCompra.find arroje la excepcion cuando

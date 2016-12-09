@@ -19,12 +19,24 @@ class Carrito():
 
 
 class OrdenCompra():
-    def __init__(self, pCarrito):
-        self.OrdenCompra = entities.OrdenCompra(idCliente = pCarrito.idCliente, status = 1, listaProductosOrden = pCarrito.listaProductos)
+    def __init__(self, pCarrito=None):
+        self.OrdenCompra = None
+
+        if pCarrito:
+            self.OrdenCompra = models.OrdenCompra(
+                idCliente=pCarrito.idCliente,
+                status=1,
+                listaProductosOrden=pCarrito.listaProductos)
 
     def mostrarDetalle(self):
         return self.OrdenCompra
 
     @staticmethod
     def find(order_id):
-        return models.OrdenCompra.objects.get(id=order_id)
+        """ Dado el ID de una orden, la busca en la base de datos y la envuelve
+        en una instancia business_logic.OrdenCompra.
+        """
+        order = OrdenCompra()
+        order.OrdenCompra = models.OrdenCompra.objects.get(id=order_id)
+
+        return order
