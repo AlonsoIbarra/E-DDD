@@ -1,10 +1,39 @@
-<html>
-<head>
-	<title> ECOMMERCE </title>
-</head>
 
-<body>
+{% extends 'base.html' %}
 
-</body>
+	{% block header_text %}E-COMMERCE{% endblock %}
+	
+	{% block detalles %}
+	<h2>Nombre</h2>
+	{{productoDetalle.nombre}}
+	<h2>Descripcion</h2>
+	{{productoDetalle.descripcion}}
+	<h2>Marca</h2>
+	{{productoDetalle.marca}}
+	<h2>Precio</h2>
+	{{productoDetalle.precio}}
+	{% endblock%}
+
+	{% block agregar_a_carrito %}
+		<form action="order_detail.html">
+		<!--<form action="/ordens/agregar/{{ producto.idProducto }}/2">-->
+			<select nombre="Cantidad" id="cantidad">
+				<option selected value="0"> Cantidad </option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			</select>
+			<input type=button name"agregarCarrito" value="Agregar a carrito">
+		</form>
+	{% endblock %}
+
+		
 
 </html>

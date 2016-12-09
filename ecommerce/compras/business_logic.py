@@ -1,4 +1,4 @@
-import entities
+import compras.models 
  
 class Carrito():
     
@@ -29,4 +29,5 @@ class OrdenCompra():
     
         
         
+
 

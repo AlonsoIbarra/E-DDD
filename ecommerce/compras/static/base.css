@@ -1,0 +1,11 @@
+.encabezado {
+
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+    }
+
+.encabezado h1{
+	font-size: 50pt;
+    text-decoration: none;
+    margin-left: 12ex;
+    }
