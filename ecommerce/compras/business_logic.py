@@ -19,14 +19,12 @@ class Carrito():
     
 
 class OrdenCompra():
-    def __init__(self, pCarrito):
-        self.OrdenCompra = entities.OrdenCompra(idCliente = pCarrito.idCliente, status = 1, listaProductosOrden = pCarrito.listaProductos)
-
+    def __init__(self):
+        pass
+    
+    def adquirirCarrito(self, pCarrito):
+        pass
+    
     def mostrarDetalle(self):
         return self.OrdenCompra
-        
-        
-    
-        
-        
-
+  
