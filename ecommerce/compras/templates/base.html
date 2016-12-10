@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ECOMMERCE</title>
+	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/base.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="encabezado">
+		<h1>{% block header_text %}{% endblock %}</h1>
+	</div>
+	<div class="listaProductos">
+		{% block lista_productos %}
+		{% endblock %}
+	</div>
+	<div class="detallesProductos">
+		{% block detalles %}
+		{% endblock %}
+	</div>
+	<div class="agregarCarrito">
+		{% block agregar_a_carrito %}
+		{% endblock %}
+	</div>
+	<input type=button value="Atras">
+
+</body>
+
+</html>

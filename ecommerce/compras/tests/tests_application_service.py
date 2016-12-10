@@ -38,3 +38,8 @@ class OrdenCompraTest(TestCase):
         # Orden cancelada no tiene boton pagar
         # Orden pendiente tiene boton pagar
         # El total mostrado coincide con la suma del total de los productos
+
+class TestCarrito(TestCase):
+    def TestCarritoTemplate(self):
+        request = self.client.get('/orders/agregarProductoCarrito/1/6')
+        self.assertTemplateUsed(response, 'detalles_producto.html')
