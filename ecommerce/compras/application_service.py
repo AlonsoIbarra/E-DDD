@@ -18,4 +18,4 @@ def agregarProductoCarrito(request, idProducto, cantidad):
     else:
     	carrito = Carrito.find(request.session['idCarrito'])
     carrito.agregarProducto(idProducto, cantidad)
-    return render(request, 'detalles_producto.html',{'carrito':carrito})
+    return render(request, 'detalles_producto.html',{'carrito':carrito.carrito})
