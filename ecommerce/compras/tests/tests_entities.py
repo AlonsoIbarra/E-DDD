@@ -1,6 +1,7 @@
 from django.test import TestCase
 from compras.models import Carrito, Producto, OrdenCompra
 import json
+from decimal import Decimal
 
 # Create your tests here.
 
@@ -45,9 +46,19 @@ class TestProduct(TestCase):
 
 class TestCarrito(TestCase):
     def test_saveCarrito(self):
+        producto = Producto.objects.create(
+            nombre  = "cargador de calular",
+            descripcion = "Cargador de celular",
+            marca = "Samsung",
+            precio = 70.81
+        )
+        producto = Producto.objects.get(idProducto=producto.idProducto)
         carrito = Carrito.objects.create(
             idCliente = 1,
-            listaProductos = json.dumps([1,23,8.0], [1,45,8.0]),
+            listaProductos = json.dumps([
+                [producto.idProducto, 23, float(producto.precio)],
+                [producto.idProducto, 3, float(producto.precio)]
+            ]),
             total = 90.4,
         )
         carritoDB = Carrito.objects.get(idCarrito=carrito.idCarrito)

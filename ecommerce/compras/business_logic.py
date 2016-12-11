@@ -1,4 +1,5 @@
 from compras import models
+from decimal import Decimal
 import json
 
 class Carrito():
@@ -22,13 +23,13 @@ class Carrito():
     def agregarProducto(self, pProducto, pCantidad):
         producto = models.Producto.objects.get(idProducto=pProducto)
         listaProductos = json.loads(self.carrito.listaProductos)
-        listaProductos.append([producto.idProducto, pCantidad, producto.precio])
+        listaProductos.append([producto.idProducto, pCantidad])
         self.carrito.listaProductos = json.dumps(listaProductos)
         self.carrito.total = self.calcularTotal()
 
     def calcularTotal(self):
         listaProductos = json.loads(self.carrito.listaProductos)
-        return sum([cantidad * precio for id, cantidad, precio in listaProductos])
+        return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio)  for id, cantidad in listaProductos])
 
 
 class OrdenCompra():
