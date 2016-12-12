@@ -64,3 +64,8 @@ class ProductoTest(TestCase):
             list(Producto.objects.all()),
             [producto1,producto2,producto3]
         )
+
+class TestCarrito(TestCase):
+    def TestCarritoTemplate(self):
+        request = self.client.get('/orders/agregarProductoCarrito/1/6')
+        self.assertTemplateUsed(response, 'detalles_producto.html')

@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from .application_service import order_detail
 from .application_service import ver_detalles, product_list
+from .application_service import agregarProductoCarrito
 
 urlpatterns = patterns('',
     # Examples:
@@ -8,4 +9,6 @@ urlpatterns = patterns('',
     url(r'^(?P<id>\d+)', order_detail, name='order_detail'),
     url(r'^verdetalle/(?P<idProducto>\d+)', ver_detalles, name='ver_detalles'),
     url(r'^$', product_list, name='product_list'),
+    url(r'^agregarProductoCarrito/(?P<idProducto>\d+)/(?P<cantidad>\d+)', agregarProductoCarrito),
+
 )
