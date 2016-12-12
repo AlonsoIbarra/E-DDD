@@ -32,7 +32,7 @@ class Carrito():
 
     def calcularTotal(self):
         listaProductos = json.loads(self.carrito.listaProductos)
-        return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio)  for id, cantidad in listaProductos])
+        return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio) for id, cantidad in listaProductos])
 
 
 class OrdenCompra():
@@ -52,4 +52,4 @@ class OrdenCompra():
 
 class Producto():
     def __init__(self):
-        self.Producto = entities.Producto.all()
+        self.Producto = models.Producto.all()

@@ -43,29 +43,30 @@ class OrdenCompraTest(TestCase):
 class ProductoTest(TestCase):
     def test_mostrarListaProductos(self):
         producto1 = Producto.objects.create(
-            nombre = 'Computadora',
-            descripcion = 'Escritorio 13 plugadas, memoria RAM',
-            marca = 'HP',
-            precio = 9999.99,
+            nombre='Computadora',
+            descripcion='Escritorio 13 plugadas, memoria RAM',
+            marca='HP',
+            precio=9999.99,
         )
         producto2 = Producto.objects.create(
-            nombre = 'Teclado',
-            descripcion = 'Inalambrico',
-            marca = 'ACER',
-            precio = 400
+            nombre='Teclado',
+            descripcion='Inalambrico',
+            marca='ACER',
+            precio=400
         )
         producto3 = Producto.objects.create(
-            nombre = 'Memoria USB',
-            descripcion = 'Capacidad 16G',
-            marca = 'Kin',
-            precio = 400
+            nombre='Memoria USB',
+            descripcion='Capacidad 16G',
+            marca='Kin',
+            precio=400
         )
         self.assertEquals(
             list(Producto.objects.all()),
-            [producto1,producto2,producto3]
+            [producto1, producto2, producto3]
         )
+
 
 class TestCarrito(TestCase):
     def TestCarritoTemplate(self):
         request = self.client.get('/orders/agregarProductoCarrito/1/6')
-        self.assertTemplateUsed(response, 'detalles_producto.html')
+        self.assertTemplateUsed(request, 'detalles_producto.html')

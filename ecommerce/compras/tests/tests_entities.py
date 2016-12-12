@@ -78,4 +78,3 @@ class TestCarrito(TestCase):
         carrito.save()
         carritoDB = Carrito.objects.get(idCarrito=carrito.idCarrito)
         self.assertEquals(carrito, carritoDB)
-
