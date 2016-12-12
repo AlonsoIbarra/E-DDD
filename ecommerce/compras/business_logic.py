@@ -1,3 +1,4 @@
+import json
 from compras import models
 
 class Carrito():
@@ -19,6 +20,7 @@ class Carrito():
 
 
 class OrdenCompra():
+
     def __init__(self, pCarrito=None):
         self.OrdenCompra = None
 
@@ -30,6 +32,30 @@ class OrdenCompra():
 
     def mostrarDetalle(self):
         return self.OrdenCompra
+
+    def products(self):
+        """ Obtiene una lista de diccionarios (para más facil accesso) donde
+        cada uno contiene la información general de un producto para ser
+        presentado en el detalle de la orden.
+
+        Cada diccionario en la lista tiene las llaves: 'nombre', 'descripcion',
+        'cantidad' y 'precio.
+        """
+        products = []
+        lista_productos = json.loads(self.OrdenCompra.listaProductosOrden)
+        for product in lista_productos:
+            producto = models.Producto.objects.get(id=product[0])
+            cantidad = product[1]
+            precio = product[2]
+
+            products.append({
+                'nombre': producto.nombre,
+                'descripcion': producto.descripcion,
+                'cantidad': cantidad,
+                'precio': precio
+            })
+
+        return products
 
     @staticmethod
     def find(order_id):

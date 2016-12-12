@@ -2,21 +2,32 @@ import json
 from django.test import TestCase
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
-from compras.models import OrdenCompra as OrdenCompraModel
+from compras.models import OrdenCompra as EntityOrdenCompra, \
+    Producto as EntityProducto
 from compras.business_logic import OrdenCompra
 
 
 class OrdenCompraTest(TestCase):
 
     def setUp(self):
+        self.p1 = EntityProducto.objects.create(
+            nombre='Tesla Model X',
+            descripcion='Auto que se conduce solo',
+            marca='Tesla Motors',
+            precio=34.50)
+        self.p2 = EntityProducto.objects.create(
+            nombre='iPhone',
+            descripcion='iPhone nuevo plus',
+            marca='Apple',
+            precio=14.30)
+
         products = json.dumps([
-            [1, 1, 10.45],
-            [2, 4, 10.35],
-            [3, 10, 13.17]])
+            [self.p1.id, 1, 10.45],
+            [self.p2.id, 4, 10.35]])
 
         # TODO: Cuando sea posible utilizar la capa logica para
         # crear una orden sin acceder al modelo, cambiar esto.
-        self.pending_order = OrdenCompraModel.objects.create(
+        self.pending_order = EntityOrdenCompra.objects.create(
             fechaCompra=timezone.now(),
             idCliente=1,
             listaProductosOrden=products,
@@ -29,7 +40,7 @@ class OrdenCompraTest(TestCase):
         order = OrdenCompra.find(self.pending_order.id)
 
         self.assertIsInstance(order, OrdenCompra)
-        self.assertEquals(order.OrdenCompra, self.pending_order)
+        self.assertEqual(order.OrdenCompra, self.pending_order)
 
     def test_find_non_existent_order(self):
         """ Prueba que OrdenCompra.find arroje la excepcion cuando
@@ -37,3 +48,16 @@ class OrdenCompraTest(TestCase):
         """
         with self.assertRaises(ObjectDoesNotExist):
             OrdenCompra.find(32)
+
+    def test_products(self):
+        """ Prueba que dada una OrdenCompra pueda obtener la información de sus
+        productos en un dict (a menos hasta que exista capa lógica de Producto)
+        """
+        order = OrdenCompra.find(self.pending_order.id)
+
+        products = order.products()
+        self.assertEqual(2, len(products))
+        self.assertEqual(products[0]['nombre'], self.p1.nombre)
+        self.assertEqual(products[0]['descripcion'], self.p1.descripcion)
+        self.assertEqual(products[0]['cantidad'], 1)
+        self.assertEqual(products[0]['precio'], 10.45)
