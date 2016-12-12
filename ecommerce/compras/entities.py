@@ -13,6 +13,7 @@ class Producto (Entity):
     descripcion = models.CharField(max_length=100)
     marca = models.CharField(max_length=30)
     precio = models.DecimalField(decimal_places=2, max_digits=8)
+    image = models.CharField(max_length=255, null=True)
 
 
 class Carrito (Entity):
