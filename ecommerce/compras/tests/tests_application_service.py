@@ -1,7 +1,7 @@
 import json
 from django.test import TestCase
 from django.utils import timezone
-from compras.models import OrdenCompra
+from compras.models import OrdenCompra, Producto
 
 # Create your tests here.
 
@@ -38,3 +38,29 @@ class OrdenCompraTest(TestCase):
         # Orden cancelada no tiene boton pagar
         # Orden pendiente tiene boton pagar
         # El total mostrado coincide con la suma del total de los productos
+
+
+class ProductoTest(TestCase):
+    def test_mostrarListaProductos(self):
+        producto1 = Producto.objects.create(
+            nombre = 'Computadora',
+            descripcion = 'Escritorio 13 plugadas, memoria RAM',
+            marca = 'HP',
+            precio = 9999.99,
+        )
+        producto2 = Producto.objects.create(
+            nombre = 'Teclado',
+            descripcion = 'Inalambrico',
+            marca = 'ACER',
+            precio = 400
+        )
+        producto3 = Producto.objects.create(
+            nombre = 'Memoria USB',
+            descripcion = 'Capacidad 16G',
+            marca = 'Kin',
+            precio = 400
+        )
+        self.assertEquals(
+            list(Producto.objects.all()),
+            [producto1,producto2,producto3]
+        )

@@ -28,3 +28,8 @@ class OrdenCompra():
     @staticmethod
     def find(order_id):
         return models.OrdenCompra.objects.get(id=order_id)
+
+
+class Producto():
+    def __init__(self):
+        self.Producto = entities.Producto.all()
