@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+	{% block detalles %}
+        {% if products %}
+				<div class="content container">
+						<div class="row">
+								<div class="col-md-8">
+								{% for product in products %}
+										<div class="product">
+												<div>
+														<img src="{{STATIC_URL}}{{ product.image }}" alt="{{ product.nombre }}" class="img-rounded"/>
+												</div>
+												<blockquote>
+										  	    <h1><a href="/verdetalle">{{ product.nombre }}</a></h1>
+											      <p>{{ product.descripcion }}</p>
+												    <p>{{ product.precio}}</p>
+												</blockquote>
+										</div>
+								{% endfor %}
+								</div>
+						</div>
+				</div>
+				{% else %}
+						<p class="bg-warning">{{ "No products found." }}</p>
+       {% endif %}
+{% endblock %}
