@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Detalles de la orden</title>
+    </head>
+    <body>
+        <h1>Order: {{ order.OrdenCompra.idOrdenCompra }}</h1>
+        <ul>
+            <li>Fecha compra: {{ order.OrdenCompra.fechaCompra }}</li>
+            {% if order.OrdenCompra.status == 0 %}
+            <li>Estado: Pagada</li>
+            {% elif order.OrdenCompra.status == 1 %}
+            <li>Estado: Pendiente</li>
+            {% else %}
+            <li>Estado: Cancelada</li>
+            {% endif %}
+        </ul>
+
+        <table>
+            {% for product in order.products %}
+            <tr>
+                <td>{{ product.cantidad }}</td>
+                <td>{{ product.nombre }}</td>
+                <td>{{ product.descripcion }}</td>
+                <td>{{ product.precio }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br />
+    </body>
+</html>
