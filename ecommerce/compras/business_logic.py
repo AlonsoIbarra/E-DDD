@@ -1,5 +1,6 @@
 from compras import models
 import json
+from django.utils import timezone
 
 class Producto():
     def __init__(self):
@@ -41,23 +42,19 @@ class Carrito():
 
 class PurchaseOrder():
 
-    def __init__(self):
+    def __init__(self, pidCliente):
+        carrito = models.Carrito.objects.get(idCliente=pidCliente)
+
         self.ordenCompra = models.OrdenCompra()
-    
+        self.ordenCompra.idCliente = carrito.pidCliente
+        self.listaProductosOrden = carrito.listaProductos
+        self.status = 1
 
-    def buyArticles(self, pCarrito):
-        self.ordenCompra = models.ordenCompra.objects.create(
-            idCliente=1,
-            listaProductosOrden=pCarrito.listaProductos,
-            status=1,
-        )
+    def buyArticles(self):
+       oc = self.ordenCompra = models.ordenCompra.objects.create(
+           fechaCompra=timezone.now(),)
 
-    def getDetails(self):
-        return self.ordenCompra
-
-    @staticmethod
-    def find(order_id):
-        return models.OrdenCompra.objects.get(id=order_id)
+       self.idOrdenCompra = oc.idOrdenCompra
 
 
 class ProductCatalog():

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from compras.models import Producto
-from compras.business_logic import Carrito
+from compras.business_logic import Carrito, PurchaseOrder
 # Create your views here.
 
 
@@ -29,3 +29,11 @@ def agregarProductoCarrito(request):
     else:
         pass
     return render(request, 'product_list.html', {'carrito': carrito.carrito})
+
+def adquirirCarrito(request):
+    if request.method == 'GET' and 'adquirir' in request.GET:
+        purchaseOrder = PurchaseOrder(int(request.session['idCliente']))
+        purchaseOrder.buyArticles()
+        return render(request, 'product_list.html', {'purchaseOrder': purchaseOrder})
+    
+    return render(request, 'product_list.html')
