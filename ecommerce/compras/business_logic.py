@@ -1,5 +1,10 @@
 from compras import models
 import json
+from django.utils import timezone
+
+class Producto():
+    def __init__(self):
+        self.Producto = models.Producto.all()
 
 
 class Carrito():
@@ -35,21 +40,41 @@ class Carrito():
         return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio) for id, cantidad in listaProductos])
 
 
-class OrdenCompra():
+class PurchaseOrder():
+
+    def __init__(self, pidCliente):
+        carrito = models.Carrito.objects.get(idCliente=pidCliente)
+
+        self.ordenCompra = models.OrdenCompra()
+        self.ordenCompra.idCliente = carrito.pidCliente
+        self.listaProductosOrden = carrito.listaProductos
+        self.status = 1
+
+    def buyArticles(self):
+       oc = self.ordenCompra = models.ordenCompra.objects.create(
+           fechaCompra=timezone.now(),)
+
+       self.idOrdenCompra = oc.idOrdenCompra
+
+
+class ProductCatalog():
     def __init__(self):
         pass
 
-    def adquirirCarrito(self, pCarrito):
+    def find(self, pidProduct):
+        return models.Producto.objects.get(pk=pidProduct)
+
+    def getAll(self):
+        return models.Producto.objects.get()
+
+
+class PurchaseOrderList():
+    def __init__(self):
         pass
 
-    def mostrarDetalle(self):
-        return self.OrdenCompra
+    def findById(self, pidPurchaseOrder):
+        return models.OrdenCompra.objects.get(pk=pidPurchaseOrder)
+    
+    def getAll(self):
+        return models.OrdenCompra.objects.get()
 
-    @staticmethod
-    def find(order_id):
-        return models.OrdenCompra.objects.get(id=order_id)
-
-
-class Producto():
-    def __init__(self):
-        self.Producto = models.Producto.all()
