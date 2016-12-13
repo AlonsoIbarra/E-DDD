@@ -1,17 +1,14 @@
 
 {% extends 'base.html' %}
 
-	{% block header_text %}E-COMMERCE{% endblock %}
+	{% block header_text %}DETALLES DEL PRODUCTO{% endblock %}
 
 	{% block detalles %}
-	<h2>Nombre</h2>
-	{{productoDetalle.nombre}}
-	<h2>Descripcion</h2>
-	{{productoDetalle.descripcion}}
-	<h2>Marca</h2>
-	{{productoDetalle.marca}}
-	<h2>Precio</h2>
-	{{productoDetalle.precio}}
+	<img src="{{STATIC_URL}}images/{{productoDetalle.image}}">
+	<h2>Nombre: {{productoDetalle.nombre}}</h2>
+	<h2>Marca: {{productoDetalle.marca}}</h2>
+	<h2>Descripcion: {{productoDetalle.descripcion}}</h2>
+	<h2>Precio: {{productoDetalle.precio}}</h2>
 	{% endblock%}
 
 	{% block agregar_a_carrito %}
