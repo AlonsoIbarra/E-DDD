@@ -1,11 +1,8 @@
 from django.shortcuts import render
 from compras.models import Producto
-<<<<<<< HEAD
 from compras.business_logic import Carrito, PurchaseOrder
-=======
-from compras.business_logic import Carrito
 from django.shortcuts import redirect
->>>>>>> b9db573a0f61b998235271c0755db8d162adb6de
+from django.db.models import Q
 # Create your views here.
 
 
