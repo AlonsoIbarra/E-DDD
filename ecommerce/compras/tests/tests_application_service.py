@@ -1,5 +1,5 @@
 import json
-
+from django.db.models import Q
 from django.test import TestCase
 from django.conf import settings
 from django.utils import timezone, dateformat, html
@@ -92,30 +92,43 @@ class OrdenCompraTest(TestCase):
 class ProductoTest(TestCase):
     def test_mostrarListaProductos(self):
         producto1 = Producto.objects.create(
-            nombre='Computadora',
+            nombre='Computadora 1',
             descripcion='Escritorio 13 plugadas, memoria RAM',
             marca='HP',
             precio=9999.99,
         )
         producto2 = Producto.objects.create(
             nombre='Teclado',
-            descripcion='Inalambrico',
+            descripcion='Inalambrico 1',
             marca='ACER',
             precio=400
         )
         producto3 = Producto.objects.create(
             nombre='Memoria USB',
-            descripcion='Capacidad 16G',
+            descripcion='Capacidad 16G RAM',
             marca='Kin',
             precio=400
         )
+
         self.assertEquals(
             list(Producto.objects.all()),
             [producto1, producto2, producto3]
+        )
+
+        consulta='RAM'
+        resultado=Producto.objects.filter(Q(descripcion__icontains=consulta) | Q(descripcion__icontains=consulta))
+
+        self.assertEquals(
+             resultado[0].nombre,
+            'Computadora 1'
+        )
+        self.assertEquals(
+            resultado[1].nombre,
+            'Memoria USB'
         )
 
 
 class TestCarrito(TestCase):
     def TestCarritoTemplate(self):
         request = self.client.get('/orders/agregarProductoCarrito/1/6')
-        self.assertTemplateUsed(request, 'detalles_producto.html')
+        self.assertTemplateUsed(request, 'product_list.html')

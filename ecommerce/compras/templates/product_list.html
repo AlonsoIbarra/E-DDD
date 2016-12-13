@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 {% block header_text %}E-COMMERCE{% endblock %}
+	{% block carrito %}
+		{% if carrito %}
+					<div class="col-md-2 col-md-offset-10">
+						<div class="card">
+							<div class="card-block">
+								<h4 class="card-title">Carrito</h4>
+								<p class="card-text">Total = {{ carrito.total }}</p>
+								<form action="/orders" method="GET">
+									<input type="hidden" name="idCarrito" value="{{ carrito.idCarrito }}">
+ 	  			    				<input type="submit" class="btn card-link" value="Adquirir" alt="AdquirirCarrito" />
+								</form>
+							</div>
+						</div>
+					</div>
+		{% endif %}
+	{% endblock %}
 	{% block detalles %}
         {% if products %}
 				<div class="content container">
@@ -8,7 +24,7 @@
 								{% for product in products %}
 										<div class="product">
 												<div>
-														<img src="{{STATIC_URL}}{{ product.image }}" alt="{{ product.nombre }}" class="img-rounded"/>
+														<img src="{{STATIC_URL}}images/{{ product.image }}" alt="{{ product.nombre }}" class="img-rounded"/>
 												</div>
 												<blockquote>
 										  	    <h1>{{ product.nombre }}</h1>

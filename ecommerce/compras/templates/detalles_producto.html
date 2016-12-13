@@ -15,9 +15,9 @@
 	{% endblock%}
 
 	{% block agregar_a_carrito %}
-		<form action="order_detail.html">
-		<!--<form action="/ordens/agregar/{{ producto.idProducto }}/2">-->
-			<select nombre="Cantidad" id="cantidad">
+		<form action="/orders/agregarProductoCarrito" method="GET">
+			<input type="hidden" name="idProducto" value="{{ productoDetalle.idProducto }}">
+			<select name="Cantidad" id="cantidad">
 				<option selected value="0"> Cantidad </option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -30,7 +30,7 @@
 				<option value="9">9</option>
 				<option value="10">10</option>
 			</select>
-			<input type=button name"agregarCarrito" value="Agregar a carrito">
+			<input type=submit name"agregarCarrito" value="Agregar a carrito">
 		</form>
 	{% endblock %}
 

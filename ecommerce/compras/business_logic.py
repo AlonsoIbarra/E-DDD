@@ -1,6 +1,11 @@
 import json
 from compras import models
 import json
+from django.utils import timezone
+
+class Producto():
+    def __init__(self):
+        self.Producto = models.Producto.all()
 
 
 class Carrito():
@@ -36,22 +41,20 @@ class Carrito():
         return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio) for id, cantidad in listaProductos])
 
 
-class OrdenCompra():
+class PurchaseOrder():
 
-    def __init__(self, pCarrito=None):
-        self.OrdenCompra = None
+    def __init__(self, pidCliente):
+        carrito = models.Carrito.objects.get(idCliente=pidCliente)
 
-        if pCarrito:
-            self.OrdenCompra = models.OrdenCompra(
-                idCliente=pCarrito.idCliente,
-                status=1,
-                listaProductosOrden=pCarrito.listaProductos)
+        self.ordenCompra = models.OrdenCompra()
+        self.ordenCompra.idCliente = carrito.pidCliente
+        self.listaProductosOrden = carrito.listaProductos
+        self.status = 1
 
-    def adquirirCarrito(self, pCarrito):
-        pass
-
-    def mostrarDetalle(self):
-        return self.OrdenCompra
+    def buyArticles(self):
+        oc = self.ordenCompra = models.ordenCompra.objects.create(
+            fechaCompra=timezone.now())
+        self.idOrdenCompra = oc.idOrdenCompra
 
     def products(self):
         """ Obtiene una lista de diccionarios (para más facil accesso) donde
@@ -82,12 +85,29 @@ class OrdenCompra():
         """ Dado el ID de una orden, la busca en la base de datos y la envuelve
         en una instancia business_logic.OrdenCompra.
         """
-        order = OrdenCompra()
+        order = PurchaseOrder()
         order.OrdenCompra = models.OrdenCompra.objects.get(id=order_id)
 
         return order
 
 
-class Producto():
+class ProductCatalog():
     def __init__(self):
-        self.Producto = models.Producto.all()
+        pass
+
+    def find(self, pidProduct):
+        return models.Producto.objects.get(pk=pidProduct)
+
+    def getAll(self):
+        return models.Producto.objects.get()
+
+
+class PurchaseOrderList():
+    def __init__(self):
+        pass
+
+    def findById(self, pidPurchaseOrder):
+        return models.OrdenCompra.objects.get(pk=pidPurchaseOrder)
+
+    def getAll(self):
+        return models.OrdenCompra.objects.get()
