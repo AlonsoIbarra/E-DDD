@@ -55,7 +55,6 @@ class OrdenCompraTest(TestCase):
         Prueba que el usuario vea los detalles de la orden
         de compra correctamente.
         """
-        print('Buscando en el test la order id: ', self.pending_order.id)
         response = self.client.get('/orders/{}'.format(self.pending_order.id))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'order_detail.html')

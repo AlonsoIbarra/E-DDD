@@ -1,7 +1,7 @@
 import json
 from compras import models
-import json
 from django.utils import timezone
+
 
 class Producto():
     def __init__(self):
@@ -43,8 +43,9 @@ class Carrito():
 
 class PurchaseOrder():
 
-    def __init__(self, pidCarrito):
-        self.carrito = models.Carrito.objects.get(idCarrito=pidCarrito)
+    def __init__(self, pidCarrito=None):
+        if pidCarrito:
+            self.carrito = models.Carrito.objects.get(idCarrito=pidCarrito)
 
     def buyArticles(self):
         ordenCompra = models.OrdenCompra()
@@ -84,10 +85,8 @@ class PurchaseOrder():
         """ Dado el ID de una orden, la busca en la base de datos y la envuelve
         en una instancia PurchaseOrder
         """
-        print('Buscando en el business order id: ', order_id)
         order = models.OrdenCompra.objects.get(id=order_id)
-        print('Orden encontrada: ', order.id)
-        purchase_order = PurchaseOrder(order.idCliente)
+        purchase_order = PurchaseOrder()
         purchase_order.OrdenCompra = order
 
         return purchase_order
