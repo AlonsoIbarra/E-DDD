@@ -1,6 +1,10 @@
 from compras import models
 import json
 
+class Producto():
+    def __init__(self):
+        self.Producto = models.Producto.all()
+
 
 class Carrito():
     def __init__(self, pIdCliente):
@@ -35,21 +39,45 @@ class Carrito():
         return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio) for id, cantidad in listaProductos])
 
 
-class OrdenCompra():
+class PurchaseOrder():
+
     def __init__(self):
-        pass
+        self.ordenCompra = models.OrdenCompra()
+    
 
-    def adquirirCarrito(self, pCarrito):
-        pass
+    def buyArticles(self, pCarrito):
+        self.ordenCompra = models.ordenCompra.objects.create(
+            idCliente=1,
+            listaProductosOrden=pCarrito.listaProductos,
+            status=1,
+        )
 
-    def mostrarDetalle(self):
-        return self.OrdenCompra
+    def getDetails(self):
+        return self.ordenCompra
 
     @staticmethod
     def find(order_id):
         return models.OrdenCompra.objects.get(id=order_id)
 
 
-class Producto():
+class ProductCatalog():
     def __init__(self):
-        self.Producto = models.Producto.all()
+        pass
+
+    def find(self, pidProduct):
+        return models.Producto.objects.get(pk=pidProduct)
+
+    def getAll(self):
+        return models.Producto.objects.get()
+
+
+class PurchaseOrderList():
+    def __init__(self):
+        pass
+
+    def findById(self, pidPurchaseOrder):
+        return models.OrdenCompra.objects.get(pk=pidPurchaseOrder)
+    
+    def getAll(self):
+        return models.OrdenCompra.objects.get()
+

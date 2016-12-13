@@ -88,3 +88,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+ecommerce/compras/templates/carrito.html
+ecommerce/compras/templates/carrito.html~
+ecommerce/compras/views.py
+ecommerce/compras/views.py~
