@@ -7,15 +7,15 @@
 							<div class="card-block">
 								<i class="fa fa-shopping-cart fa-4x" aria-hidden="true"></i>
 								<p class="card-text">Total = {{ carrito.total }}</p>
-								<form action="/orders" method="GET">
+								<form action="OrdenDeCompra/" method="GET">
 									<input type="hidden" name="idCarrito" value="{{ carrito.idCarrito }}">
- 	  			    				<input type="submit" class="btn card-link" value="Adquirir" alt="AdquirirCarrito">
+ 	  			    				<input type="submit" class="btn card-link" value="Adquirir" alt="AdquirirCarrito" name="btnAdquirir" />
 								</form>
 							</div>
 						
 					</div>
 		{% endif %}
-	{% endblock %}	
+	{% endblock %}
 	{% block detalles %}
         {% if products %}
 				<div class="content_container">
