@@ -1,11 +1,8 @@
 from django.shortcuts import render
 from compras.models import Producto
-<<<<<<< HEAD
 from compras.business_logic import Carrito, PurchaseOrder
-=======
-from compras.business_logic import Carrito
 from django.shortcuts import redirect
->>>>>>> b9db573a0f61b998235271c0755db8d162adb6de
+
 # Create your views here.
 
 
@@ -19,6 +16,7 @@ def ver_detalles(request, idProducto):
 
 
 def product_list(request):
+    request.session['idCliente'] = 1
     product_list = Producto.objects.order_by('nombre')[:10]
     carrito = Carrito(request.session['idCliente'])
     context_list = {'products': product_list, 'carrito': carrito.carrito}
@@ -26,7 +24,7 @@ def product_list(request):
 
 
 def agregarProductoCarrito(request):
-    request.session['idCliente'] = 1
+    
     carrito = Carrito(request.session['idCliente'])
     if request.method == "POST" and 'idProducto' in request.POST:
         carrito.agregarProducto(request.POST['idProducto'], request.POST['Cantidad'])
@@ -41,5 +39,5 @@ def adquirirCarrito(request):
     if request.method == 'GET' and 'adquirir' in request.GET:
         purchaseOrder = PurchaseOrder(int(request.session['idCliente']))
         purchaseOrder.buyArticles()
-        return render(request, 'product_list.html', {'purchaseOrder': purchaseOrder})
+        return redirect('/order_detail.html/')
     return render(request, 'product_list.html')
