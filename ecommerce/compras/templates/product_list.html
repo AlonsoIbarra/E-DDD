@@ -16,8 +16,11 @@
 					</div>
 		{% endif %}
 	{% endblock %}
+
+
 	{% block detalles %}
         {% if products %}
+				{% include "search.html" %}
 				<div class="content container">
 						<div class="row">
 								<div class="col-md-8">

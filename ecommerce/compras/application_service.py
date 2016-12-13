@@ -16,13 +16,15 @@ def ver_detalles(request, idProducto):
 
 
 def product_list(request):
+    request.session['idCliente'] = 1
     product_list = Producto.objects.order_by('nombre')[:10]
     carrito = Carrito(request.session['idCliente'])
     context_list = {'products': product_list, 'carrito': carrito.carrito}
     return render(request, 'product_list.html', context_list)
 
 
-def product_search(request, consulta):
+def product_search(request):
+    consulta = request.GET.get('consulta')
     products = Producto.objects.filter(Q(descripcion__icontains=consulta) | Q(descripcion__icontains=consulta))
     context_list = {'products': products}
     return render(request, 'product_list.html', context_list)
