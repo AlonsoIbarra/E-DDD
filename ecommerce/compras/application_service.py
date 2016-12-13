@@ -19,12 +19,13 @@ def product_list(request):
     return render(request, 'product_list.html', context_list)
 
 
-def agregarProductoCarrito(request, idProducto, cantidad):
+def agregarProductoCarrito(request):
     request.session['idCliente'] = 1
-    if 'idCarito' not in request.session:
-        carrito = Carrito(request.session['idCliente'])
-        request.session['idCarrito'] = carrito.get()
+    carrito = Carrito(request.session['idCliente'])
+    if request.method == "POST" and 'idProducto' in request.POST:
+        carrito.agregarProducto(request.POST['idProducto'], request.POST['Cantidad'])
+    elif request.method == "GET" and 'idProducto' in request.GET:
+        carrito.agregarProducto(request.GET['idProducto'], request.GET['Cantidad'])
     else:
-        carrito = Carrito.find(request.session['idCarrito'])
-    carrito.agregarProducto(idProducto, cantidad)
-    return render(request, 'detalles_producto.html', {'carrito': carrito.carrito})
+        pass
+    return render(request, 'product_list.html', {'carrito': carrito.carrito})

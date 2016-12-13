@@ -69,4 +69,4 @@ class ProductoTest(TestCase):
 class TestCarrito(TestCase):
     def TestCarritoTemplate(self):
         request = self.client.get('/orders/agregarProductoCarrito/1/6')
-        self.assertTemplateUsed(request, 'detalles_producto.html')
+        self.assertTemplateUsed(request, 'product_list.html')
