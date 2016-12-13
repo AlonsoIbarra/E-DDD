@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block header_text %}E-COMMERCE{% endblock %}
 	{% block detalles %}
         {% if products %}
 				<div class="content container">
@@ -10,10 +11,13 @@
 														<img src="{{STATIC_URL}}{{ product.image }}" alt="{{ product.nombre }}" class="img-rounded"/>
 												</div>
 												<blockquote>
-										  	    <h1><a href="/verdetalle">{{ product.nombre }}</a></h1>
-											      <p>{{ product.descripcion }}</p>
-												    <p>{{ product.precio}}</p>
+										  	    <h1>{{ product.nombre }}</h1>
+											    <p>{{ product.descripcion }}</p>
+												<p>{{ product.precio}}</p>
 												</blockquote>
+												<form action="verdetalle/{{ product.idProducto }}">
+													<input type="submit" value="Ver detalle del producto">
+												</form>
 										</div>
 								{% endfor %}
 								</div>

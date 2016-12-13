@@ -15,16 +15,8 @@ def order_detail(request, id):
 
 
 def ver_detalles(request, idProducto):
-    # detalleProducto = Producto.objects.get(id=idProducto)
-    producto = Producto.objects.create(
-        entity_ptr_id=3,
-        nombre="Camisa",
-        descripcion="Camisa blanca tipo polo tamaño regular",
-        marca="Polo",
-        precio=540.50
-    )
-
-    return render(request, 'detalles_producto.html', {'productoDetalle': producto})
+    detalleProducto = Producto.objects.get(idProducto=idProducto)
+    return render(request, 'detalles_producto.html', {'productoDetalle': detalleProducto})
 
 
 def product_list(request):
