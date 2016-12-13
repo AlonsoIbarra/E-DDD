@@ -1,6 +1,10 @@
 from compras import models
 import json
 
+class Producto():
+    def __init__(self):
+        self.Producto = models.Producto.all()
+
 
 class Carrito():
     def __init__(self, pIdCliente):
@@ -32,13 +36,14 @@ class Carrito():
 
     def calcularTotal(self):
         listaProductos = json.loads(self.carrito.listaProductos)
-        return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio)  for id, cantidad in listaProductos])
+        return sum([float(cantidad) * float(models.Producto.objects.get(idProducto=id).precio) for id, cantidad in listaProductos])
 
 
 class PurchaseOrder():
 
     def __init__(self):
         self.ordenCompra = models.OrdenCompra()
+    
 
     def buyArticles(self, pCarrito):
         self.ordenCompra = models.ordenCompra.objects.create(
@@ -75,3 +80,4 @@ class PurchaseOrderList():
     
     def getAll(self):
         return models.OrdenCompra.objects.get()
+
