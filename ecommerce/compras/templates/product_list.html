@@ -15,7 +15,7 @@
 						</div>
 					</div>
 		{% endif %}
-	{% endblock %}	
+	{% endblock %}
 	{% block detalles %}
         {% if products %}
 				<div class="content container">
@@ -24,7 +24,7 @@
 								{% for product in products %}
 										<div class="product">
 												<div>
-														<img src="{{STATIC_URL}}{{ product.image }}" alt="{{ product.nombre }}" class="img-rounded"/>
+														<img src="{{STATIC_URL}}images/{{ product.image }}" alt="{{ product.nombre }}" class="img-rounded"/>
 												</div>
 												<blockquote>
 										  	    <h1>{{ product.nombre }}</h1>

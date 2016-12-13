@@ -92,3 +92,5 @@ ecommerce/compras/templates/carrito.html
 ecommerce/compras/templates/carrito.html~
 ecommerce/compras/views.py
 ecommerce/compras/views.py~
+compras/migrations/0001_initial.py
+compras/migrations/0002_producto_image.py

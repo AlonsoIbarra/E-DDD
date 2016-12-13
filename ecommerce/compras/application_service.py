@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response
 from compras.models import Producto
 from compras.business_logic import Carrito, PurchaseOrder
 from django.shortcuts import redirect
+from django.db.models import Q
 
 # Create your views here.
 
@@ -21,6 +22,12 @@ def product_list(request):
     carrito = Carrito(request.session['idCliente'])
     request.session['idCarrito'] = carrito.get()
     context_list = {'products': product_list, 'carrito': carrito.carrito}
+    return render(request, 'product_list.html', context_list)
+
+
+def product_search(request, consulta):
+    products = Producto.objects.filter(Q(descripcion__icontains=consulta) | Q(descripcion__icontains=consulta))
+    context_list = {'products': products}
     return render(request, 'product_list.html', context_list)
 
 
