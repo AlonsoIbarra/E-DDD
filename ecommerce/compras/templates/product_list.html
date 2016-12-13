@@ -3,7 +3,7 @@
 	{% block carrito %}
 		{% if carrito %}
 					<div class="col-md-2 col-md-offset-10">
-						
+
 							<div class="card-block">
 								<i class="fa fa-shopping-cart fa-4x" aria-hidden="true"></i>
 								<p class="card-text">Total = {{ carrito.total }}</p>
@@ -12,13 +12,16 @@
  	  			    				<input type="submit" class="btn card-link" value="Adquirir" alt="AdquirirCarrito" name="btnAdquirir" />
 								</form>
 							</div>
-						
+
 					</div>
 		{% endif %}
 	{% endblock %}
+
+
 	{% block detalles %}
         {% if products %}
-				<div class="content_container">
+				{% include "search.html" %}
+				<div class="content container">
 						<div class="row">
 								<div class="col-md-8">
 								{% for product in products %}
@@ -30,7 +33,7 @@
 										  	    <h1>{{ product.nombre }}</h1>
 											    <p>{{ product.descripcion }}</p>
 												<p>{{ product.precio}}</p>
-												
+
 												<form action="verdetalle/{{ product.idProducto }}">
 													<input type="submit" value="Ver detalle del producto">
 												</form>
