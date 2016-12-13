@@ -3,6 +3,7 @@
 <head>
 	<title>ECOMMERCE</title>
 	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://use.fontawesome.com/fef88923eb.js"></script>
     <link href="/static/base.css" rel="stylesheet">
 </head>
 
@@ -11,7 +12,7 @@
 			 <h1>ECOMMERCE</h1>
 	 </div>	
 	<div class="encabezado">
-		<h1>{% block header_text %}{% endblock %}</h1>
+		<h2>{% block header_text %}{% endblock %}</h2>
 	</div>
 	<div class="carrito">
 		{% block carrito %}
@@ -29,7 +30,16 @@
 		{% block agregar_a_carrito %}
 		{% endblock %}
 	</div>
-	<input type=button value="Atras">
+
+	<div class="footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>&copy; 2016 E-COMMERCE. All Rights Reserved.</p>
+                </div>
+            </div>
+    </div>
+
+
 
 </body>
 
