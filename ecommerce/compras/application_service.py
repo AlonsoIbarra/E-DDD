@@ -19,6 +19,12 @@ def product_list(request):
     return render(request, 'product_list.html', context_list)
 
 
+def product_search(request, consulta):
+    products = Producto.objects.filter(Q(descripcion__icontains=consulta) | Q(descripcion__icontains=consulta))
+    context_list = {'products': products}
+    return render(request, 'product_list.html', context_list)
+
+
 def agregarProductoCarrito(request):
     request.session['idCliente'] = 1
     carrito = Carrito(request.session['idCliente'])
