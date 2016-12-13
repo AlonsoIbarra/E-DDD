@@ -7,20 +7,38 @@
         <link href="/static/base.css" rel="stylesheet">
     </head>
     <body>
+        <div class="page-header">
+            <h1>ECOMMERCE</h1>
+        </div>
+        <div class="encabezado">
+            <h2>Detalles de la orden</h2>
+        </div>
+
         <div class="container">
             <div class="col-sm-6 col-sm-offset-3">
                 <div class="row">
-                    <h1>Número de Orden: #{{ order.OrdenCompra.idOrdenCompra }}</h1>
-                    <ul>
-                        <h3>Fecha compra: {{ order.OrdenCompra.fechaCompra }}</h3>
-                        {% if order.OrdenCompra.status == 0 %}
-                        <h3>Estado: Pagada</h3>
-                        {% elif order.OrdenCompra.status == 1 %}
-                        <h3>Estado: Pendiente</h3>
-                        {% else %}
-                        <h3>Estado: Cancelada</h3>
-                        {% endif %}
-                    </ul>
+                    <table class="table">
+                        <tr>
+                            <td>Número de orden: </td>
+                            <td>#{{ order.OrdenCompra.idOrdenCompra }}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha compra: </td>
+                            <td>{{ order.OrdenCompra.fechaCompra }}</td>
+                        </tr>
+                        <tr>
+                            <td>Estado: </td>
+                            <td>
+                            {% if order.OrdenCompra.status == 0 %}
+                            Pagada
+                            {% elif order.OrdenCompra.status == 1 %}
+                            Pendiente
+                            {% else %}
+                            Cancelada
+                            {% endif %}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="row">
@@ -38,5 +56,13 @@
             </div>
 
         </div> <!-- END .container -->
+
+        <div class="footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>&copy; 2016 E-COMMERCE. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

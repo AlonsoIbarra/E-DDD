@@ -66,13 +66,13 @@ class OrdenCompraTest(TestCase):
             settings.DATE_FORMAT)
 
         self.assertTrue('order' in response.context)
-        self.assertContains(response, 'Estado: Pendiente')
+        self.assertContains(response, 'Pendiente')
         self.assertContains(
             response,
             html.escape(self.pending_order.idOrdenCompra))
         self.assertContains(
             response,
-            html.escape('Fecha compra: {}'.format(formated_date)))
+            html.escape(formated_date))
 
         # Revisar que los productos vengan listados
         order = PurchaseOrder.find(self.pending_order.id)
