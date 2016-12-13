@@ -1,7 +1,11 @@
 import json
 from django.test import TestCase
-from django.utils import timezone
-from compras.models import OrdenCompra
+from django.conf import settings
+from django.utils import timezone, dateformat, html
+from compras.business_logic import OrdenCompra
+from compras.models import \
+    OrdenCompra as EntityOrdenCompra, \
+    Producto as EntityProducto
 
 # Create your tests here.
 
@@ -9,30 +13,72 @@ from compras.models import OrdenCompra
 class OrdenCompraTest(TestCase):
 
     def setUp(self):
-        products = json.dumps([[1, 10.45], [2, 10.35], [3, 13.17]])
+        self.p1 = EntityProducto.objects.create(
+            nombre='Tesla Model X',
+            descripcion='Auto que se conduce solo',
+            marca='Tesla Motors',
+            precio=34.50)
 
-        self.pending_order = OrdenCompra.objects.create(
+        self.p2 = EntityProducto.objects.create(
+            nombre='iPhone',
+            descripcion='iPhone nuevo plus',
+            marca='Apple',
+            precio=14.30)
+
+        products = json.dumps([
+            [self.p1.id, 1, 10.45],
+            [self.p2.id, 4, 10.35]])
+
+        self.pending_order = EntityOrdenCompra.objects.create(
             fechaCompra=timezone.now(),
             idCliente=1,
             listaProductosOrden=products,
             status=1)
 
-        self.canceled_order = OrdenCompra.objects.create(
+        self.canceled_order = EntityOrdenCompra.objects.create(
             fechaCompra=timezone.now(),
             idCliente=1,
             listaProductosOrden=products,
             status=2)
 
-        self.paid_order = OrdenCompra.objects.create(
+        self.paid_order = EntityOrdenCompra.objects.create(
             fechaCompra=timezone.now(),
             idCliente=1,
             listaProductosOrden=products,
             status=0)
 
     def test_view_order(self):
-        response = self.client.get('/orders/1')
+        """
+        Prueba que el usuario vea los detalles de la orden
+        de compra correctamente.
+        """
+        response = self.client.get('/orders/{}'.format(self.pending_order.id))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'order_detail.html')
+
+        # los productios a los que hace referencia la orden deben estar creados
+
+        formated_date = dateformat.format(
+            self.pending_order.fechaCompra,
+            settings.DATE_FORMAT)
+
+        self.assertTrue('order' in response.context)
+        self.assertContains(response, 'Estado: Pendiente')
+        self.assertContains(
+            response,
+            html.escape(self.pending_order.idOrdenCompra))
+        self.assertContains(
+            response,
+            html.escape('Fecha compra: {}'.format(formated_date)))
+
+        # Revisar que los productos vengan listados
+        order = OrdenCompra.find(self.pending_order.id)
+
+        for product in order.products():
+            self.assertContains(response, product['nombre'])
+            self.assertContains(response, product['descripcion'])
+            self.assertContains(response, product['cantidad'])
+            self.assertContains(response, product['precio'])
 
         # Orden pagada no tiene boton pagar
         # Orden cancelada no tiene boton pagar
