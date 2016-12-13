@@ -7,7 +7,7 @@
 							<div class="card-block">
 								<h4 class="card-title">Carrito</h4>
 								<p class="card-text">Total = {{ carrito.total }}</p>
-								<form action="/orders" method="GET">
+								<form action="OrdenDeCompra/" method="GET">
 									<input type="hidden" name="idCarrito" value="{{ carrito.idCarrito }}">
  	  			    				<input type="submit" class="btn card-link" value="Adquirir" alt="AdquirirCarrito" name="btnAdquirir" />
 								</form>

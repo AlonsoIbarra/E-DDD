@@ -42,19 +42,19 @@ class Carrito():
 
 class PurchaseOrder():
 
-    def __init__(self, pidCliente):
-        carrito = models.Carrito.objects.get(idCliente=pidCliente)
-
-        self.ordenCompra = models.OrdenCompra()
-        self.ordenCompra.idCliente = carrito.pidCliente
-        self.listaProductosOrden = carrito.listaProductos
-        self.status = 1
-
+    def __init__(self, pidCarrito):
+        self.carrito = models.Carrito.objects.get(idCarrito=pidCarrito)
+        
+       
+        
     def buyArticles(self):
-       oc = self.ordenCompra = models.ordenCompra.objects.create(
-           fechaCompra=timezone.now(),)
-
-       self.idOrdenCompra = oc.idOrdenCompra
+        ordenCompra = models.OrdenCompra()
+        self.oc =ordenCompra = models.OrdenCompra.objects.create(
+            listaProductosOrden = self.carrito.listaProductos,
+            status = 1,
+            fechaCompra = timezone.now(),
+            idCliente = self.carrito.idCliente
+       )
 
 
 class ProductCatalog():

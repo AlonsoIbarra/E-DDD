@@ -11,5 +11,6 @@ urlpatterns = patterns(
     url(r'^verdetalle/(?P<idProducto>\d+)', ver_detalles, name='ver_detalles'),
     url(r'^$', product_list, name='product_list'),
     url(r'^agregarProductoCarrito', agregarProductoCarrito),
-    url(r'^OrdenDeCompra', adquirirCarrito),    
+    url(r'^OrdenDeCompra', adquirirCarrito),
+        
 )
