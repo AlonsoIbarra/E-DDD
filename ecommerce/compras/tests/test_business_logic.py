@@ -4,12 +4,13 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from compras.models import OrdenCompra as EntityOrdenCompra, \
     Producto as EntityProducto
-from compras.business_logic import OrdenCompra
+from compras.business_logic import PurchaseOrder, Carrito
 
 
 class OrdenCompraTest(TestCase):
 
     def setUp(self):
+        Carrito(1)  # Crea un carrito para que no falle al crear un PurchaseOrder
         self.p1 = EntityProducto.objects.create(
             nombre='Tesla Model X',
             descripcion='Auto que se conduce solo',
@@ -37,9 +38,8 @@ class OrdenCompraTest(TestCase):
         """ Prueba que OrdenCompra.find funcione correctamente al pasarle el Id
         de una orden existente.
         """
-        order = OrdenCompra.find(self.pending_order.id)
-
-        self.assertIsInstance(order, OrdenCompra)
+        order = PurchaseOrder.find(self.pending_order.id)
+        self.assertIsInstance(order, PurchaseOrder)
         self.assertEqual(order.OrdenCompra, self.pending_order)
 
     def test_find_non_existent_order(self):
@@ -47,13 +47,13 @@ class OrdenCompraTest(TestCase):
         se le da el ID de una orden que no existe.
         """
         with self.assertRaises(ObjectDoesNotExist):
-            OrdenCompra.find(32)
+            PurchaseOrder.find(32)
 
     def test_products(self):
         """ Prueba que dada una OrdenCompra pueda obtener la información de sus
         productos en un dict (a menos hasta que exista capa lógica de Producto)
         """
-        order = OrdenCompra.find(self.pending_order.id)
+        order = PurchaseOrder.find(self.pending_order.id)
 
         products = order.products()
         self.assertEqual(2, len(products))

@@ -47,7 +47,7 @@ class PurchaseOrder():
         carrito = models.Carrito.objects.get(idCliente=pidCliente)
 
         self.ordenCompra = models.OrdenCompra()
-        self.ordenCompra.idCliente = carrito.pidCliente
+        self.ordenCompra.idCliente = carrito.idCliente
         self.listaProductosOrden = carrito.listaProductos
         self.status = 1
 
@@ -83,12 +83,15 @@ class PurchaseOrder():
     @staticmethod
     def find(order_id):
         """ Dado el ID de una orden, la busca en la base de datos y la envuelve
-        en una instancia business_logic.OrdenCompra.
+        en una instancia PurchaseOrder
         """
-        order = PurchaseOrder()
-        order.OrdenCompra = models.OrdenCompra.objects.get(id=order_id)
+        print('Buscando en el business order id: ', order_id)
+        order = models.OrdenCompra.objects.get(id=order_id)
+        print('Orden encontrada: ', order.id)
+        purchase_order = PurchaseOrder(order.idCliente)
+        purchase_order.OrdenCompra = order
 
-        return order
+        return purchase_order
 
 
 class ProductCatalog():

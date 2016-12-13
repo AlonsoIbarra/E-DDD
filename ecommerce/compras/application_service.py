@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponseNotFound
 from django.core.exceptions import ObjectDoesNotExist
-from compras.models import Producto
+from compras.models import Producto, OrdenCompra
 from compras.business_logic import Carrito, PurchaseOrder
 from django.db.models import Q
 
 
 def order_detail(request, id):
+    print('Ordenes existentes son: ')
+    for o in OrdenCompra.objects.all():
+        print('ID: {} | IdOrdenCompra: {}'.format(o.id, o.idOrdenCompra))
+
     try:
         order = PurchaseOrder.find(id)
     except ObjectDoesNotExist:

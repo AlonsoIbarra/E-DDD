@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.conf import settings
 from django.utils import timezone, dateformat, html
 
-from compras.business_logic import OrdenCompra
+from compras.business_logic import PurchaseOrder
 from compras.models import Producto
 from compras.models import \
     OrdenCompra as EntityOrdenCompra, \
@@ -55,6 +55,7 @@ class OrdenCompraTest(TestCase):
         Prueba que el usuario vea los detalles de la orden
         de compra correctamente.
         """
+        print('Buscando en el test la order id: ', self.pending_order.id)
         response = self.client.get('/orders/{}'.format(self.pending_order.id))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'order_detail.html')
@@ -75,7 +76,7 @@ class OrdenCompraTest(TestCase):
             html.escape('Fecha compra: {}'.format(formated_date)))
 
         # Revisar que los productos vengan listados
-        order = OrdenCompra.find(self.pending_order.id)
+        order = PurchaseOrder.find(self.pending_order.id)
 
         for product in order.products():
             self.assertContains(response, product['nombre'])
