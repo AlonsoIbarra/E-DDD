@@ -1,14 +1,79 @@
-<html>
-  <head>
-    <title>
-      Detalle de Orden
-      </title>
-  </head>
-  <body>
-    {{purchaseOrder.oc.fechaCompra}} <br/>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Detalles de la orden</title>
+        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/base.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="page-header">
+            <h1>ECOMMERCE</h1>
+        </div>
+        <div class="encabezado">
+            <h2>Detalles de la orden</h2>
+        </div>
 
-   
-    
-  </body>
-  
-  </html>
+        <div class="container">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <td>Número de orden: </td>
+                            <td>#{{ order.OrdenCompra.idOrdenCompra }}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha compra: </td>
+                            <td>{{ order.OrdenCompra.fechaCompra }}</td>
+                        </tr>
+                        <tr>
+                            <td>Estado: </td>
+                            <td>
+                            {% if order.OrdenCompra.status == 0 %}
+                            Pagada
+                            {% elif order.OrdenCompra.status == 1 %}
+                            Pendiente
+                            {% else %}
+                            Cancelada
+                            {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <table class="table table-hover">
+                        {% for product in order.products %}
+                        <tr>
+                            <td>{{ product.cantidad }}</td>
+                            <td>{{ product.nombre }}</td>
+                            <td>{{ product.descripcion }}</td>
+                            <td>${{ product.precio }}</td>
+                            <td>${{ product.subtotal }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <th>Total:</th>
+                            <th>${{ order.total }}</th>
+                        </tr>
+                    </table>
+                    {% if order.OrdenCompra.status == 1 %}
+                    <a class="btn btn-lg btn-primary pull-right" href="#">Pagar Orden</a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div> <!-- END .container -->
+
+        <div class="footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>&copy; 2016 E-COMMERCE. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

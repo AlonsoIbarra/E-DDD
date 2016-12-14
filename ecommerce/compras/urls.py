@@ -12,5 +12,4 @@ urlpatterns = patterns(
     url(r'^$', product_list, name='product_list'),
     url(r'^agregarProductoCarrito', agregarProductoCarrito),
     url(r'^OrdenDeCompra', adquirirCarrito),
-        
 )
