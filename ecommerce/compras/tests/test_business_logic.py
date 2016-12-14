@@ -4,13 +4,12 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from compras.models import OrdenCompra as EntityOrdenCompra, \
     Producto as EntityProducto
-from compras.business_logic import PurchaseOrder, Carrito
+from compras.business_logic import PurchaseOrder
 
 
-class OrdenCompraTest(TestCase):
+class PurchaseOrderTest(TestCase):
 
     def setUp(self):
-        Carrito(1)  # Crea un carrito para que no falle al crear un PurchaseOrder
         self.p1 = EntityProducto.objects.create(
             nombre='Tesla Model X',
             descripcion='Auto que se conduce solo',
@@ -22,9 +21,8 @@ class OrdenCompraTest(TestCase):
             marca='Apple',
             precio=14.30)
 
-        products = json.dumps([
-            [self.p1.id, 1, 10.45],
-            [self.p2.id, 4, 10.35]])
+        self.list_products = [[self.p1.id, 1, 10.45], [self.p2.id, 4, 10.35]]
+        products = json.dumps(self.list_products)
 
         # TODO: Cuando sea posible utilizar la capa logica para
         # crear una orden sin acceder al modelo, cambiar esto.
@@ -61,3 +59,15 @@ class OrdenCompraTest(TestCase):
         self.assertEqual(products[0]['descripcion'], self.p1.descripcion)
         self.assertEqual(products[0]['cantidad'], 1)
         self.assertEqual(products[0]['precio'], 10.45)
+        self.assertEqual(products[1]['subtotal'], round(10.35 * 4, 2))
+
+    def test_total(self):
+        """ Prueba que el total calculado de una OrdenCompra sea el correcto
+        según los productos existentes en dicha OrdenCompra.
+        """
+        order = PurchaseOrder.find(self.pending_order.id)
+        total = 0
+        for product in self.list_products:
+            total += round(product[1] * product[2], 2)  # Cantidad * Precio
+
+        self.assertEqual(order.total, round(total, 2))

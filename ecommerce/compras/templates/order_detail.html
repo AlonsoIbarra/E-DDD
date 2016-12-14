@@ -49,8 +49,16 @@
                             <td>{{ product.nombre }}</td>
                             <td>{{ product.descripcion }}</td>
                             <td>{{ product.precio }}</td>
+                            <td>{{ product.subtotal }}</td>
                         </tr>
                         {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total:</td>
+                            <td>{{ order.total }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>

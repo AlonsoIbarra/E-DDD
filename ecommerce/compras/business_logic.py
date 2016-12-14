@@ -66,6 +66,7 @@ class PurchaseOrder():
         """
         products = []
         lista_productos = json.loads(self.OrdenCompra.listaProductosOrden)
+
         for product in lista_productos:
             producto = models.Producto.objects.get(id=product[0])
             cantidad = product[1]
@@ -75,10 +76,23 @@ class PurchaseOrder():
                 'nombre': producto.nombre,
                 'descripcion': producto.descripcion,
                 'cantidad': cantidad,
-                'precio': precio
+                'precio': precio,
+                'subtotal': round(precio * cantidad, 2)
             })
 
         return products
+
+    @property
+    def total(self):
+        """ Calcula el total de la orden, iterando sobre los productos y
+        sumando su subtotal.
+        """
+        total = 0
+
+        for product in self.products():
+            total += product['subtotal']
+
+        return round(total, 2)
 
     @staticmethod
     def find(order_id):
