@@ -4,18 +4,20 @@
 	{% block header_text %}DETALLES DEL PRODUCTO{% endblock %}
 
 	{% block detalles %}
-	<div class="content container">
-	<img src="{{STATIC_URL}}images/{{productoDetalle.image}}">
+	<div class="descripcion">
+	<img src="{{STATIC_URL}}images/{{productoDetalle.image}}" class="img-responsive">
+	<blockquote>
 	<h2>Nombre: {{productoDetalle.nombre}}</h2>
 	<h2>Marca: {{productoDetalle.marca}}</h2>
 	<h2>Descripcion: {{productoDetalle.descripcion}}</h2>
 	<h2>Precio: {{productoDetalle.precio}}</h2>
+	</blockquote>
 	{% endblock%}
 
 	{% block agregar_a_carrito %}
 		<form action="/orders/agregarProductoCarrito" method="GET">
 			<input type="hidden" name="idProducto" value="{{ productoDetalle.idProducto }}">
-			<select name="Cantidad" id="cantidad">
+			<select class="selectpicker show-tick" name="Cantidad" id="cantidad">
 				<option selected value="0"> Cantidad </option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -28,10 +30,11 @@
 				<option value="9">9</option>
 				<option value="10">10</option>
 			</select>
-			<input type=submit class="btn btn-default" name"agregarCarrito" value="Agregar a carrito">
+			<input type=submit class="btn btn-primary" name"agregarCarrito" value="Agregar a carrito">
 		</form>
 	</div>
 	{% endblock %}
+
 
 
 </html>

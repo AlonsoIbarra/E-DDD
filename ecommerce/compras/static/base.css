@@ -75,3 +75,15 @@ body{
 .carrito {
     text-align: center;
 }
+.descripcion img{
+    width: auto;
+    height: auto;
+    max-height: 200px;
+    max-width: 60%;
+    float: left;
+    position: relative;
+}
+.descripcion div{
+    float: right;
+    position: relative;
+}
