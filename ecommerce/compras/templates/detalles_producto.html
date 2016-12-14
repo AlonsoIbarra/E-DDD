@@ -4,6 +4,7 @@
 	{% block header_text %}DETALLES DEL PRODUCTO{% endblock %}
 
 	{% block detalles %}
+	<div class="content container">
 	<img src="{{STATIC_URL}}images/{{productoDetalle.image}}">
 	<h2>Nombre: {{productoDetalle.nombre}}</h2>
 	<h2>Marca: {{productoDetalle.marca}}</h2>
@@ -27,10 +28,10 @@
 				<option value="9">9</option>
 				<option value="10">10</option>
 			</select>
-			<input type=submit name"agregarCarrito" value="Agregar a carrito">
+			<input type=submit class="btn btn-default" name"agregarCarrito" value="Agregar a carrito">
 		</form>
+	</div>
 	{% endblock %}
-
 
 
 </html>

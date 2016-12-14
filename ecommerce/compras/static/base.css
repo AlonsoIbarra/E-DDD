@@ -26,17 +26,18 @@ h1, h2, h3, h4, p{
 
 .product {
         margin-bottom: 50px;
+        background-color: #ffffff;
     }
 .product h1 a, .product h1 a:visited {
         color: blue;
     }
 
 body{
-    background-color:     #fbfcfc    ;
+    background-color:     #fbfcfc;
 }
 .card-block{
     padding: 10px 10px 10px 40px;
-    background-color:   #148f77   ;
+    background-color:   #148f77;
     border-radius: 10px 10px;
 }
 .card-text, .card-title{
@@ -69,5 +70,8 @@ body{
     width: auto;
     height: auto;
     max-height: 200px;
-    max-width: 60%; 
+    max-width: 60%;
+}
+.carrito {
+    text-align: center;
 }

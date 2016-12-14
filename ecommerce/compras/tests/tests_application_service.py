@@ -1,11 +1,9 @@
 import json
-from django.db.models import Q
 from django.test import TestCase
 from django.conf import settings
 from django.utils import timezone, dateformat, html
 
 from compras.business_logic import PurchaseOrder
-from compras.models import Producto
 from compras.models import \
     OrdenCompra as EntityOrdenCompra, \
     Producto as EntityProducto
@@ -107,42 +105,32 @@ class OrdenCompraTest(TestCase):
 
 
 class ProductoTest(TestCase):
-    def test_mostrarListaProductos(self):
-        producto1 = Producto.objects.create(
-            nombre='Computadora 1',
-            descripcion='Escritorio 13 plugadas, memoria RAM',
+    def setUp(self):
+        self.producto1 = EntityProducto.objects.create(
+            nombre='Computadora portatil',
+            descripcion='13 plugadas, memoria RAM',
             marca='HP',
             precio=9999.99,
         )
-        producto2 = Producto.objects.create(
+        self.producto2 = EntityProducto.objects.create(
             nombre='Teclado',
             descripcion='Inalambrico 1',
             marca='ACER',
             precio=400
         )
-        producto3 = Producto.objects.create(
-            nombre='Memoria USB',
-            descripcion='Capacidad 16G RAM',
+        self.producto3 = EntityProducto.objects.create(
+            nombre='Mouse',
+            descripcion='Inalambrico',
             marca='Kin',
             precio=400
         )
 
-        self.assertEquals(
-            list(Producto.objects.all()),
-            [producto1, producto2, producto3]
-        )
-
-        consulta='RAM'
-        resultado=Producto.objects.filter(Q(descripcion__icontains=consulta) | Q(descripcion__icontains=consulta))
-
-        self.assertEquals(
-             resultado[0].nombre,
-            'Computadora 1'
-        )
-        self.assertEquals(
-            resultado[1].nombre,
-            'Memoria USB'
-        )
+    def test_product_list(self):
+        """ Prueba que se despliegue el listado de productos
+        """
+        response = self.client.get('/product_list/')
+        self.assertTemplateUsed(response, 'product_list.html')
+        self.assertContains(response, 'Teclado')
 
 
 class TestCarrito(TestCase):
