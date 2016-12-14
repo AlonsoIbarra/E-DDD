@@ -59,12 +59,11 @@ class OrdenCompraTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'order_detail.html')
 
-        # los productios a los que hace referencia la orden deben estar creados
-
         formated_date = dateformat.format(
             self.pending_order.fechaCompra,
             settings.DATE_FORMAT)
 
+        # Probamos que la página muestre el status, la fecha e Id de la orden
         self.assertTrue('order' in response.context)
         self.assertContains(response, 'Pendiente')
         self.assertContains(
@@ -74,7 +73,7 @@ class OrdenCompraTest(TestCase):
             response,
             html.escape(formated_date))
 
-        # Revisar que los productos vengan listados
+        # Probamos que los productos vengan listados en la página
         order = PurchaseOrder.find(self.pending_order.id)
 
         for product in order.products():
@@ -83,10 +82,28 @@ class OrdenCompraTest(TestCase):
             self.assertContains(response, product['cantidad'])
             self.assertContains(response, product['precio'])
 
-        # Orden pagada no tiene boton pagar
-        # Orden cancelada no tiene boton pagar
-        # Orden pendiente tiene boton pagar
-        # El total mostrado coincide con la suma del total de los productos
+        # Probamos que el botón de "Pagar Orden" se despliegue
+        self.assertContains(response, 'Pagar Orden')
+
+    def test_view_canceled_order(self):
+        """ Prueba que al ver el detalle de la orden que ya esta cancelada, no
+        aparezca ningún botón para pagarla.
+        """
+        response = self.client.get('/orders/{}'.format(self.canceled_order.id))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'order_detail.html')
+
+        self.assertNotContains(response, 'Pagar Orden')
+
+    def test_view_paid_order(self):
+        """ Prueba que al ver el detalle de la orden que ya esta pagada, no
+        aparezca ningún botón para pagarla.
+        """
+        response = self.client.get('/orders/{}'.format(self.paid_order.id))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'order_detail.html')
+
+        self.assertNotContains(response, 'Pagar Orden')
 
 
 class ProductoTest(TestCase):

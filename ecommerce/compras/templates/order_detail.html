@@ -60,6 +60,9 @@
                             <td>{{ order.total }}</td>
                         </tr>
                     </table>
+                    {% if order.OrdenCompra.status == 1 %}
+                    <a class="btn btn-lg btn-primary pull-right" href="#">Pagar Orden</a>
+                    {% endif %}
                 </div>
             </div>
 
