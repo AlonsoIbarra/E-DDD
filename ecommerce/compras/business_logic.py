@@ -87,7 +87,7 @@ class PurchaseOrder():
         for product in lista_productos:
             producto = models.Producto.objects.get(id=product[0])
             cantidad = product[1]
-            precio = product[2]
+            precio = producto.precio
 
             products.append({
                 'nombre': producto.nombre,
