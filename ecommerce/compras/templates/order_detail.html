@@ -48,16 +48,16 @@
                             <td>{{ product.cantidad }}</td>
                             <td>{{ product.nombre }}</td>
                             <td>{{ product.descripcion }}</td>
-                            <td>{{ product.precio }}</td>
-                            <td>{{ product.subtotal }}</td>
+                            <td>${{ product.precio }}</td>
+                            <td>${{ product.subtotal }}</td>
                         </tr>
                         {% endfor %}
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>Total:</td>
-                            <td>{{ order.total }}</td>
+                            <th>Total:</th>
+                            <th>${{ order.total }}</th>
                         </tr>
                     </table>
                     {% if order.OrdenCompra.status == 1 %}
