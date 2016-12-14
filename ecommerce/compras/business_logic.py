@@ -1,11 +1,29 @@
 import json
 from compras import models
 from django.utils import timezone
+from django.db.models import Q
 
 
-class Producto():
+class ListProduct():
     def __init__(self):
         self.Producto = models.Producto.all()
+
+    def findAll():
+        """ Obtener el listado de producto que se encuentre en la
+        entidad de productos
+        """
+        product_list = models.Producto.objects.order_by('nombre')
+        return product_list
+
+    def findByConsulta(consulta):
+        """ Obtener el listado de producto que se encuentre en la
+        entidad de productos de acuerdo a la consulta
+        """
+        products = models.Producto.objects.filter(
+            Q(descripcion__icontains=consulta) |
+            Q(nombre__icontains=consulta)
+        )
+        return products
 
 
 class Carrito():
@@ -48,8 +66,7 @@ class PurchaseOrder():
             self.carrito = models.Carrito.objects.get(idCarrito=pidCarrito)
 
     def buyArticles(self):
-        ordenCompra = models.OrdenCompra()
-        self.oc = ordenCompra = models.OrdenCompra.objects.create(
+        self.oc = models.OrdenCompra.objects.create(
             listaProductosOrden=self.carrito.listaProductos,
             status=1,
             fechaCompra=timezone.now(),
