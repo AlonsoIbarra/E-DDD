@@ -7,7 +7,7 @@ urlpatterns = patterns(
     '',
     # Examples:
     # url(r'^$', 'ecommerce.views.home', name='home'),
-    url(r'^(?P<id>\d+)', order_detail, name='order_detail'),
+    url(r'^purchase/(?P<id>\d+)', order_detail, name='order_detail'),
     url(r'^verdetalle/(?P<idProducto>\d+)', ver_detalles, name='ver_detalles'),
     url(r'^$', product_list, name='product_list'),
     url(r'^agregarProductoCarrito', agregarProductoCarrito),

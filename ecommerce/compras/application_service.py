@@ -48,4 +48,6 @@ def agregarProductoCarrito(request):
 def adquirirCarrito(request):
     purchaseOrder = PurchaseOrder(int(request.session['idCarrito']))
     purchaseOrder.buyArticles()
-    return render_to_response('order_detail.html', {'purchaseOrder': purchaseOrder})
+
+    return redirect('/orders/purchase/{}'.format(
+        purchaseOrder.oc.idOrdenCompra))
