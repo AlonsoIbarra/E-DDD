@@ -3,6 +3,7 @@ from django.http import HttpResponseNotFound
 from django.core.exceptions import ObjectDoesNotExist
 from compras.models import Producto
 from compras.business_logic import Carrito, PurchaseOrder, ListProduct
+from django.shortcuts import redirect
 
 
 def order_detail(request, id):
@@ -41,7 +42,7 @@ def agregarProductoCarrito(request):
     else:
         pass
 
-    return render(request, 'product_list.html', {'carrito': carrito.carrito})
+    return redirect("/orders/")
 
 
 def adquirirCarrito(request):
